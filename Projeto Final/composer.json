@@ -1,0 +1,9 @@
+{
+    "name": "ixcsoft/projetofinal",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {}
+}
