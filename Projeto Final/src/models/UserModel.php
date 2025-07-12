@@ -4,7 +4,7 @@
 class UserModel
 {
     protected $pdo;
-    protected $table = 'responsaveis'; // ← Agora usa a tabela correta
+    protected $table = 'responsaveis';
 
     public function __construct()
     {
@@ -21,8 +21,13 @@ class UserModel
 
     public function inserir(array $dados)
     {
-        $sql = "INSERT INTO {$this->table} (nome) VALUES (:nome)";
+        $sql = "INSERT INTO {$this->table} (nome, email, senha) VALUES (:nome, :email, :senha)";
         $stmt = $this->pdo->prepare($sql);
+
+        if (isset($dados['senha'])) {
+            $dados['senha'] = password_hash($dados['senha'], PASSWORD_DEFAULT);
+        }
+
         $stmt->execute($dados);
     }
 
@@ -36,10 +41,28 @@ class UserModel
 
     public function atualizar($id, array $dados)
     {
-        $sql = "UPDATE {$this->table} SET nome = :nome WHERE id = :id";
+        // Monta a query dinamicamente para atualizar a senha somente se enviada
+        $sql = "UPDATE {$this->table} SET nome = :nome, email = :email";
+        if (isset($dados['senha'])) {
+            $sql .= ", senha = :senha";
+            // Já deve vir com hash do controller, mas se quiser, pode hash aqui também
+        }
+        $sql .= " WHERE id = :id";
+
         $stmt = $this->pdo->prepare($sql);
-        $dados['id'] = $id;
-        return $stmt->execute($dados);
+
+        // Monta os parâmetros para execute
+        $params = [
+            ':nome' => $dados['nome'],
+            ':email' => $dados['email'],
+            ':id' => $id
+        ];
+
+        if (isset($dados['senha'])) {
+            $params[':senha'] = $dados['senha'];
+        }
+
+        return $stmt->execute($params);
     }
 
     public function deletar($id)

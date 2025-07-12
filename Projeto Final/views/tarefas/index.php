@@ -56,7 +56,7 @@
                         <td><?= htmlspecialchars($tarefa['nome']) ?></td>
                         <td><?= htmlspecialchars($tarefa['prioridade']) ?></td>
                         <td><?= htmlspecialchars($tarefa['descricao']) ?></td>
-                        <td><?= htmlspecialchars($tarefa['responsavel_id']) ?></td>
+                        <td><?= htmlspecialchars($tarefa['responsavel_nome'] ?? 'Sem responsável') ?></td>
                         <td class="button-group">
                             <a href="?rota=editar-tarefa&id=<?= $tarefa['id'] ?>" class="btn editar-btn">Editar</a>
                             <a href="?rota=excluir-tarefa&id=<?= $tarefa['id'] ?>" 

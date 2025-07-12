@@ -1,14 +1,16 @@
 <?php
 // database/create_db.php
 
-$pdo = new PDO('sqlite:' . __DIR__ . '/database.sqlite');
+$pdo = new PDO('sqlite:' . __DIR__ . '/../../database.sqlite');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Cria a tabela de responsáveis
 $pdo->exec("
     CREATE TABLE IF NOT EXISTS responsaveis (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXT NOT NULL
+        nome TEXT NOT NULL,
+        email TEXT NOT NULL,
+        senha TEXT NOT NULL
     );
 ");
 
