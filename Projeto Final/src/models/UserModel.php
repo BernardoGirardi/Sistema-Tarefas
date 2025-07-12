@@ -1,5 +1,4 @@
 <?php
-// src/models/UserModel.php
 
 class UserModel
 {

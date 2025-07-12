@@ -1,5 +1,4 @@
 <?php
-// src/controllers/TarefaController.php
 
 require_once __DIR__ . '/../models/TarefaModel.php';
 

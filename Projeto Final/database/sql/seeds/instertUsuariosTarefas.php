@@ -1,5 +1,4 @@
 <?php
-// database/seed.php
 
 $pdo = new PDO('sqlite:' . __DIR__ . '/../migrations/database.sqlite');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
